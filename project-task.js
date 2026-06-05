@@ -43,6 +43,16 @@ Step-by-Step:
 2. Use the `filter()` method to apply the callback to the array.
 3. Return the filtered result.
 */
+  
+function filterProducts(products, callback)
+{
+  return products.filter(callback);
+}    
+const filteredProductsByStock = filterProducts(products,product => product.inStock==true);
+  
+   // console.log(filteredProductsByStock);
+    const filteredProductsByPrice = filterProducts(products,product => product.price>500);
+ // console.log(filteredProductsByPrice);
 
 
 /*
@@ -55,7 +65,9 @@ Step-by-Step:
 2. Extract and transform the `name` property to uppercase.
 3. Store the result in a new variable.
 */
+const productNameByUpeercase = products.map(product => product.name.toUpperCase());  
 
+//console.log(productNameByUpeercase);
 
 /*
 🔹 Task 3: Generate Discounted Prices
@@ -71,6 +83,17 @@ Step-by-Step:
 4. Print the array of products to verify the new property and value have been added to each product object.
 */
 
+function applyDiscount(discountPercent) {
+  return function(product) {
+    return product.price * (1 - discountPercent / 100);
+  };
+}
+const discount = applyDiscount(10);
+products.forEach(function(product){
+  product.salePrice = discount(product);
+});
+//console.log(products);
+
 
 /*
 🔹 Task 4: Calculate Total Inventory Value
@@ -82,13 +105,15 @@ Step-by-Step:
 2. Add only the prices of products where `inStock` is true.
 3. Store the total in a new variable.
 */
-
+const totalValue = products.reduce((total,product) => {return total + product.price;},0);
+//console.log(totalValue);
 
 // ============================================
 // 🧪 Console Test Your Work
 // ============================================
 
-// console.log("Filtered products:", ...);
-// console.log("Uppercased names:", ...);
-// console.log("Discounted products:", ...);
-// console.log("Total value in stock:", ...);
+ console.log("Filtered products by instock:",filteredProductsByStock);
+ console.log("Filtered products by price:",filteredProductsByPrice);
+console.log("Uppercased names:", productNameByUpeercase);
+console.log("Discounted products:", products);
+console.log("Total value in stock:", totalValue);
